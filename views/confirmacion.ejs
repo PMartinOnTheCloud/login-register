@@ -9,7 +9,10 @@
 <p>Inicio de session correcto</p>
 <% } else if (confirmacion == 0){ %>
 <p>El usuario y la contraseña no coinciden</p>
+<% } else if (confirmacion == 2){ %>
+<p>Tens un token, per lo tant has sigut logeat automaticament</p>
 <% } %>
 <a href="/">Torna a l'index</a>
+<a href="/logout.ejs">Delete tokens</a>
 </body>
 </html>
