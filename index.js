@@ -69,4 +69,32 @@ app.get('/logout.ejs', (req, res) => {
   res.render('index');
 })
 
+
+
+app.post("/token", function(req, res){
+  
+  user = req.headers['user'];
+  password = req.headers['password'];
+
+  for (let i= 0; i<localStorage.length; i++) {
+  	if (user == localStorage.key(i)) {
+  		let data = JSON.parse(localStorage.getItem(user));
+      res.send("Password "+data['password']);
+      res.send("Password "+password);
+  		if (password == data['password']) {
+        updatedjson = localStorage.getItem(user);
+        updatedjson = JSON.parse(updatedjson);
+        let token = require("randomstring");
+        updatedjson['token'] = token.generate(10);
+        localStorage.setItem(user,JSON.stringify(updatedjson));
+        return res.send(updatedjson);
+  		}
+      return res.send("Contraseña incorrecta");
+  	}
+  }
+  return res.send("Usuario no encontrado");
+
+
+})
+
 app.listen(4000, () => console.log('Example app listening on port 4000!'));
